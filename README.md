@@ -1,2 +1,2 @@
 # BlueScope
-Tool to profile and compare queries
+"RedShift Queries, BlueScope Reveals"
