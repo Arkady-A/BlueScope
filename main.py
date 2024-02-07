@@ -40,8 +40,12 @@ def main():
     else:
         sql_query_2 = args.sql_query_2
 
-    profiler = get_profiler(args['db_type'])(db_type=args.db_type, host=args.host, port=args.port, db=args.db,
-                                             user=args.user, password=args.password, agree=args.agree)
+    profiler = get_profiler(args['db_type'])(host=args.host,
+                                             port=args.port,
+                                             db=args.db,
+                                             user=args.user,
+                                             password=args.password,
+                                             agree=args.agree)
     sql_query_1_profile = profiler.profile(sql_query_1, {})
     if sql_query_2:
         sql_query_2_profile = profiler.profile(sql_query_2, {})
