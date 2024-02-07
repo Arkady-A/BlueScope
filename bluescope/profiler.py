@@ -1,10 +1,11 @@
+import datetime
 from abc import ABC, abstractmethod
 from statistics import stdev
 
-from bluescope.db import RedshiftServerlessConnection
-from bluescope.statsutils import calculate_sample_size
+from bluescope.db import REDSHIFT_SERVERLESS
+from bluescope.db import get_connector
 from bluescope.logger import setup_logger
-import datetime
+from bluescope.statsutils import calculate_sample_size
 
 logger = setup_logger(__name__)
 
@@ -22,8 +23,8 @@ class RedshiftServerlessProfiler(BaseProfiler):
         Initialize the RedshiftServerlessProfiler with a connection
         :param connection:
         """
-        self.connection = RedshiftServerlessConnection(host=kwargs['host'], port=kwargs['port'], db=kwargs['db'],
-                                                       user=kwargs['user'], password=kwargs['password'])
+        self.connection = get_connector(REDSHIFT_SERVERLESS)(host=kwargs['host'], port=kwargs['port'], db=kwargs['db'],
+                                                             user=kwargs['user'], password=kwargs['password'])
         self.agree = kwargs['agree']
 
     def profile(self, query: str, params: dict = {}, p_value: float = 0.90, ):
