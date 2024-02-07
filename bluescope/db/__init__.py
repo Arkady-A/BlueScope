@@ -1,5 +1,5 @@
-from consts import REDSHIFT_SERVERLESS
-from .redshift import RedshiftServerlessConnection
+from bluescope.db.consts import REDSHIFT_SERVERLESS
+from bluescope.db.redshift import RedshiftServerlessConnection
 
 connector_classes = {
     REDSHIFT_SERVERLESS: RedshiftServerlessConnection,
