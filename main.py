@@ -1,21 +1,10 @@
 import argparse
 
-from bluescope.profiler import RedshiftProfiler
 from bluescope.statsutils import find_significance
 from bluescope.logger import setup_logger
-
-profiler_classes = {
-    'redshift': RedshiftProfiler,
-}
+from bluescope import profiler_classes, get_profiler
 
 logger = setup_logger(__name__)
-
-
-def get_profiler(db_type, **kwargs):
-    profiler_class = profiler_classes.get(db_type)
-    if not profiler_class:
-        raise ValueError(f"Unsupported database type: {db_type}")
-    return profiler_class(**kwargs)
 
 
 def main():
@@ -51,12 +40,12 @@ def main():
     else:
         sql_query_2 = args.sql_query_2
 
-    profiler = get_profiler(db_type=args.db_type, host=args.host, port=args.port, db=args.db, user=args.user,
-                            password=args.password, agree=args.agree)
+    profiler = get_profiler(args['db_type'])(db_type=args.db_type, host=args.host, port=args.port, db=args.db,
+                                             user=args.user, password=args.password, agree=args.agree)
     sql_query_1_profile = profiler.profile(sql_query_1, {})
     if sql_query_2:
         sql_query_2_profile = profiler.profile(sql_query_2, {})
-        # Compare the profiles
+        # compare the profiles
         p = find_significance(sql_query_1_profile['mean'], sql_query_2_profile['mean'], sql_query_1_profile['std'],
                               sql_query_2_profile['std'], sql_query_1_profile['sample_size'],
                               sql_query_2_profile['sample_size'])

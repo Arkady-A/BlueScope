@@ -16,10 +16,10 @@ class BaseProfiler(ABC):
         pass
 
 
-class RedshiftProfiler(BaseProfiler):
+class RedshiftServerlessProfiler(BaseProfiler):
     def __init__(self, **kwargs):
         """
-        Initialize the RedshiftProfiler with a connection
+        Initialize the RedshiftServerlessProfiler with a connection
         :param connection:
         """
         self.connection = RedshiftServerlessConnection(host=kwargs['host'], port=kwargs['port'], db=kwargs['db'],
