@@ -22,7 +22,6 @@ class RedshiftServerlessConnection(BaseDBConnection):
         self.user = user
         self.password = password
         self.connect()
-
         with self.connection.cursor() as cursor:
             cursor.execute('SELECT user, current_user_id;')
             self.user_name, self.user_id = cursor.fetchone()
@@ -31,6 +30,8 @@ class RedshiftServerlessConnection(BaseDBConnection):
     def close(self):
         if self.connection:
             self.connection.close()
+            self.connection = None
+
     # executes and runs get_stats
     def connect(self):
         if self.connection:
@@ -45,6 +46,7 @@ class RedshiftServerlessConnection(BaseDBConnection):
         )
         with self.connection.cursor() as cursor:
             cursor.execute('SET enable_result_cache_for_session TO off;')
+        return True
 
     def execute(self, query: str, params: dict):
         self.connect()
