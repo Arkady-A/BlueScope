@@ -6,9 +6,9 @@ connector_classes = {
 }
 
 
-def get_connector(db_type, **kwargs):
+def get_connector(db_type):
     """ Get the connector for the given database type using mapping"""
     connector_class = connector_classes.get(db_type)
     if not connector_class:
         raise ValueError(f"Unsupported database type: {db_type}")
-    return connector_class(**kwargs)
+    return connector_class
