@@ -64,8 +64,8 @@ class RedshiftServerlessConnection(BaseDBConnection):
         self.connect()
         with self.connection.cursor() as cursor:
             query = self.stats_query.format(query, datetime, self.user_id)
-            logger.debug('Executing query: ' + query)
+            logger.debug('Executing stats query: ' + query)
             time.sleep(5)
             cursor.execute(query, params)
-            query_id, execution_time = cursor.fetchall()[0]
+            query_id, execution_time = cursor.fetchone()
         return query_id, execution_time
