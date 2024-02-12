@@ -42,7 +42,6 @@ class RedshiftServerlessProfiler(BaseProfiler):
                            f"Do you agree? (y/[N]): ")
             if answer.lower() != 'y':
                 return None
-        sample_size = 5
         logger.info(f"Profiling query: {query}")
         logger.info(f"Sample size: {sample_size}")
         stats = {'query_id': [], 'execution_time': []}
