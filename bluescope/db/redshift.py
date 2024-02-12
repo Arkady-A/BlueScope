@@ -1,9 +1,9 @@
-import logging
-
-from .base import BaseDBConnection
-import redshift_connector
-from bluescope.logger import setup_logger
 import time
+
+import redshift_connector
+
+from bluescope.logger import setup_logger
+from bluescope.db.base import BaseDBConnection
 
 logger = setup_logger(__name__)
 
