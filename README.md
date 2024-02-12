@@ -22,9 +22,45 @@ Table of currently supported databases:
 | PostgreSQL          | Planned       |
 | MySQL               | Planned       |
 # How to use
-TBD
+## CLI
+CLI is in development. For now, you can use the package in your code.
+
+## Package
+To install package run
+`pip install bluescope`
+
+To use the package in your code:
+
+```python
+from bluescope import REDSHIFT_SERVERLESS
+from bluescope import get_profiler
+from bluescope.statsutils import find_significance
+
+profiler_rs_cls = get_profiler(REDSHIFT_SERVERLESS)
+profiler_rs = profiler_cls(host=*host*, port=*port*,
+                           db=*db*, user=*user*,
+                           password=*password*, agree=True)
+
+pr_1 = profiler_rs.profile(*query_1*)
+pr_2 = profiler_rs.profile(*query_2*)
+
+p = find_significance(pr_1['mean'], pr_2['mean'],
+                      pr_1['std'], pr_2['std'],
+                      pr_1['sample_size'], pr_2['sample_size'])
+```
+
 # How to contribute
-TBD
+Any ideas, comments, code improvements are very welcome. 
+
+To contribute to the project, please follow the steps:
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Push your changes to your branch
+5. Create a pull request
+6. Wait for the review
+
+
 # License
 ⚖️ GPL-3.0
 # Contact
