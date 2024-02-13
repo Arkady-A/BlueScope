@@ -10,7 +10,7 @@ install_requires = [req.strip() for req in requirements]
 
 setuptools.setup(
     name="BlueScope",
-    version="1.0.0a2",
+    version="1.0.0b1",
     author="ArkadyA",
     author_email="mirzabekian.arkadii@gmail.com",
     description="Library to profile and compare SQL queries for different databases.",
