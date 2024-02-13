@@ -27,6 +27,13 @@ class RedshiftServerlessProfiler(BaseProfiler):
                                                              user=kwargs['user'], password=kwargs['password'])
         self.agree = kwargs['agree']
 
+    def format_query(self, query: str):
+        """
+        Format the query to be used
+        :param query: SQL query to be formatted
+        :return: Formatted query
+        """
+        return " ".join(line.strip() for line in query.strip().splitlines())
     def profile(self, query: str, params: dict = {}, p_value: float = 0.90, ):
         """
         Profile the query and return the profile results
