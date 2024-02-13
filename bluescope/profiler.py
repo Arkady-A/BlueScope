@@ -54,10 +54,17 @@ class RedshiftServerlessProfiler(BaseProfiler):
         logger.info(f"Profiling query: {query}")
         logger.info(f"Sample size: {sample_size}")
         stats = {'query_id': [], 'execution_time': []}
+        first_time = True
         for i in range(sample_size):
+            # compiles the query the first time
+            if first_time:
+                first_time = False
+                logger.debug(f"Executing query FIRST TIME to compile the query (not included in the stats)")
+                self.connection.execute(query, params)
+
             # execute the query
             dt = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')
-            logger.debug(f"Executing query {i + 1}/{sample_size} ({dt})")
+            logger.info(f"Executing query {i + 1}/{sample_size} ({dt})")
             logger.debug(f"Query: {query}")
             rc = self.connection.execute(query, params)
 
