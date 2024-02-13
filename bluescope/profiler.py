@@ -36,6 +36,8 @@ class RedshiftServerlessProfiler(BaseProfiler):
         :param params: Any parameters to be passed to the query
         :return:
         """
+
+        query = self.format_query(query)
         sample_size = calculate_sample_size(p=p_value)
         if not self.agree:
             answer = input(f"Sample size (amount of time query will be executed) is {sample_size}. "
